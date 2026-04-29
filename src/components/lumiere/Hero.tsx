@@ -1,11 +1,24 @@
 import data from "@/data/site.json";
+import heroImg from "@/assets/hero-luxe.jpg";
 
 const Hero = () => {
   const { headline, subtext, ctas, badges } = data.hero;
   return (
-    <section id="inicio" className="relative pt-32 pb-0 overflow-hidden bg-gradient-to-br from-dark via-dark-2 to-dark">
-      <div className="container-luxe grid lg:grid-cols-2 gap-12 items-center min-h-[640px] py-16">
-        <div className="animate-fade-up">
+    <section
+      id="inicio"
+      className="relative pt-32 overflow-hidden bg-dark"
+      style={{
+        backgroundImage: `url(${heroImg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center right",
+      }}
+    >
+      {/* Gradient overlay: solid black left → transparent right */}
+      <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/85 via-40% to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-dark/40" />
+
+      <div className="relative container-luxe min-h-[680px] flex items-center py-20">
+        <div className="max-w-xl animate-fade-up">
           <h1 className="font-display text-5xl md:text-7xl leading-[1.05] mb-8">
             {headline.map((line, i) => (
               <span key={i} className={`block ${i === 2 ? "text-gold italic" : "text-cream"}`}>
@@ -13,7 +26,7 @@ const Hero = () => {
               </span>
             ))}
           </h1>
-          <p className="text-cream/70 max-w-md mb-10 leading-relaxed text-sm">{subtext}</p>
+          <p className="text-cream/80 max-w-md mb-10 leading-relaxed text-sm">{subtext}</p>
           <div className="flex flex-wrap gap-4">
             {ctas.map((c) => (
               <a
@@ -30,10 +43,10 @@ const Hero = () => {
             ))}
           </div>
         </div>
-        <div className="img-placeholder aspect-[4/5] w-full rounded-sm">imagen hero · crema + booster</div>
       </div>
 
-      <div className="border-t border-border/40 bg-dark-2/60">
+      {/* badges strip */}
+      <div className="relative border-t border-border/40 bg-dark/80 backdrop-blur-sm">
         <div className="container-luxe grid grid-cols-2 md:grid-cols-4 gap-6 py-6">
           {badges.map((b) => (
             <div key={b.label} className="flex items-center gap-3 text-cream/80">
