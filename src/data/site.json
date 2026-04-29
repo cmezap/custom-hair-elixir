@@ -100,15 +100,23 @@
         "id": 5,
         "name": "Anti-frizz & Sellado",
         "description": "Sella la cutícula y bloquea la humedad ambiental para un cabello sin frizz y con brillo.",
-        "available": false,
-        "ingredientes": []
+        "available": true,
+        "ingredientes": [
+          { "nombre": "Aceite de jojoba", "pct": "55%" },
+          { "nombre": "Aceite de argán", "pct": "44%" },
+          { "nombre": "Vitamina E", "pct": "1%" }
+        ]
       },
       {
         "id": 6,
         "name": "Definición de rizos",
         "description": "Define y mantiene la forma del rizo sin rigidez, aportando nutrición y elasticidad.",
-        "available": false,
-        "ingredientes": []
+        "available": true,
+        "ingredientes": [
+          { "nombre": "Aceite de coco fraccionado", "pct": "60%" },
+          { "nombre": "Aceite de almendras", "pct": "39%" },
+          { "nombre": "Vitamina E", "pct": "1%" }
+        ]
       }
     ]
   },

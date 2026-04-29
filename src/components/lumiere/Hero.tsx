@@ -10,12 +10,13 @@ const Hero = () => {
       className="relative pt-32 overflow-hidden bg-dark"
       style={{
         backgroundImage: `url(${heroImg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center right",
+        backgroundSize: "auto 110%",
+        backgroundPosition: "right -8% center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       {/* Gradient overlay: solid black left → transparent right */}
-      <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/85 via-40% to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 via-35% to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-dark/40" />
 
       <div className="relative container-luxe min-h-[680px] flex items-center py-20">

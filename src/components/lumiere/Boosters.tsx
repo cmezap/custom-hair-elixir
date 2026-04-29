@@ -1,4 +1,5 @@
 import data from "@/data/site.json";
+import placeholder from "@/assets/placeholder-product.jpg";
 
 const Boosters = () => {
   const b = data.boosters;
@@ -21,8 +22,15 @@ const Boosters = () => {
             <div className="w-9 h-9 rounded-full bg-gold text-background font-display text-lg flex items-center justify-center mb-4">
               {item.id}
             </div>
-            <div className="img-placeholder aspect-[3/4] mb-5 relative">
-              <span>booster {item.id}</span>
+            <div className="aspect-[3/4] mb-5 relative bg-dark overflow-hidden">
+              <img
+                src={placeholder}
+                alt={`Booster ${item.id} ${item.name}`}
+                loading="lazy"
+                width={768}
+                height={1024}
+                className="w-full h-full object-cover"
+              />
               {!item.available && (
                 <span className="absolute top-2 right-2 text-[9px] tracking-widest bg-background/80 text-gold px-2 py-1">
                   PRÓXIMAMENTE
