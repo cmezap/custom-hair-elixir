@@ -1,0 +1,159 @@
+{
+  "brand": {
+    "name": "LUMIÈRE",
+    "tagline": "HAIR SYSTEM",
+    "description": "Ciencia, naturaleza e inteligencia para un cabello extraordinario."
+  },
+  "nav": [
+    { "label": "INICIO", "href": "#inicio", "active": true },
+    { "label": "PRODUCTO", "href": "#producto" },
+    { "label": "BOOSTERS", "href": "#boosters" },
+    { "label": "SISTEMA IA", "href": "#sistema-ia" },
+    { "label": "CONTACTO", "href": "#contacto" }
+  ],
+  "hero": {
+    "headline": ["Tu cabello", "Tu fórmula", "Cada día"],
+    "subtext": "Un sistema capilar modular que se adapta a ti. Combina nuestra crema base hidratante con boosters oleosos 100% puros y personaliza el cuidado de tu cabello según lo que necesitas cada día.",
+    "ctas": [
+      { "label": "DESCUBRE EL SISTEMA", "type": "primary", "href": "#producto" },
+      { "label": "IR AL DIAGNÓSTICO IA ✦", "type": "secondary", "href": "#sistema-ia" }
+    ],
+    "badges": [
+      { "icon": "🧬", "label": "Personalizable" },
+      { "icon": "🌿", "label": "Ingredientes premium" },
+      { "icon": "⚗️", "label": "Ciencia + Naturaleza" },
+      { "icon": "✨", "label": "Resultados visibles" }
+    ]
+  },
+  "cremaBase": {
+    "eyebrow": "LA BASE DE TU RITUAL",
+    "title": "Crema base hidratante",
+    "description": "Una emulsión ligera pero profundamente nutritiva que hidrata, fortalece y prepara tu cabello para recibir los beneficios de los boosters.",
+    "benefits": [
+      { "icon": "💧", "label": "Hidratación profunda" },
+      { "icon": "✨", "label": "Mejora la manejabilidad" },
+      { "icon": "💪", "label": "Fortalece la fibra capilar" },
+      { "icon": "🔋", "label": "Prepara y potencia los boosters" }
+    ],
+    "ingredientes": [
+      "Agua",
+      "PEG-100 estearato (emulsificante)",
+      "Betaína (humectante)",
+      "Aceite de argán",
+      "Aceite de coco",
+      "Manteca de karité",
+      "Proteína de soya al 90%"
+    ],
+    "cta": "CONOCE LA CIENCIA DE LA FÓRMULA"
+  },
+  "boosters": {
+    "eyebrow": "EL PODER ESTÁ EN LA ELECCIÓN",
+    "title": "Nuestros boosters oleosos",
+    "subtitle": "Fases oleosas 100% puras que potencian tu crema base para responder a las necesidades de tu cabello cada día.",
+    "items": [
+      {
+        "id": 1,
+        "name": "Alisado & Suavidad",
+        "description": "Rellena microfisuras, aplana la cutícula y deja el cabello más liso y sedoso.",
+        "available": true,
+        "ingredientes": [
+          { "nombre": "Aceite de pepita de uva", "pct": "60%" },
+          { "nombre": "Proteína de suero de leche hidrolizada", "pct": "39%" },
+          { "nombre": "Vitamina E", "pct": "1%" }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Volumen & Ligereza",
+        "description": "Hidrata sin pesar, aporta cuerpo y ligereza a la fibra capilar.",
+        "available": true,
+        "ingredientes": [
+          { "nombre": "Aceite de jojoba", "pct": "79%" },
+          { "nombre": "Aceite de pepita de uva", "pct": "20%" },
+          { "nombre": "Vitamina E", "pct": "1%" }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Protección térmica",
+        "description": "Barrera antioxidante y protectora antes del uso de calor (plancha o secador). Aplicar 2-3 min antes del calor.",
+        "available": true,
+        "ingredientes": [
+          { "nombre": "Aceite de argán", "pct": "50%" },
+          { "nombre": "Aceite de aguacate", "pct": "49%" },
+          { "nombre": "Vitamina E", "pct": "1%" }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Nutrición profunda",
+        "description": "Nutrición lipídica profunda, rico en ácido oleico, gamma-orizanol y antioxidantes.",
+        "available": true,
+        "ingredientes": [
+          { "nombre": "Aceite de aguacate", "pct": "45%" },
+          { "nombre": "Aceite de argán", "pct": "35%" },
+          { "nombre": "Aceite de arroz", "pct": "19%" },
+          { "nombre": "Vitamina E", "pct": "1%" }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Anti-frizz & Sellado",
+        "description": "Sella la cutícula y bloquea la humedad ambiental para un cabello sin frizz y con brillo.",
+        "available": false,
+        "ingredientes": []
+      },
+      {
+        "id": 6,
+        "name": "Definición de rizos",
+        "description": "Define y mantiene la forma del rizo sin rigidez, aportando nutrición y elasticidad.",
+        "available": false,
+        "ingredientes": []
+      }
+    ]
+  },
+  "ritual": {
+    "eyebrow": "CÓMO FUNCIONA",
+    "title": "Tu ritual, tu combinación",
+    "pasos": [
+      { "num": 1, "icon": "🧴", "title": "Aplica tu crema base", "desc": "Dispensa ~3 pumps (10 g) en tu mano." },
+      { "num": 2, "icon": "💧", "title": "Agrega tu booster", "desc": "Añade de 3 a 6 gotas según tu necesidad del día." },
+      { "num": 3, "icon": "🤲", "title": "Mezcla y aplica", "desc": "Mezcla en tus manos y aplica de medios a puntas." }
+    ],
+    "cta": "VER GUÍA COMPLETA →"
+  },
+  "diagnosticoIA": {
+    "eyebrow": "INTELIGENCIA QUE CONOCE TU CABELLO",
+    "title": "Diagnóstico IA personalizado",
+    "description": "Nuestro sistema analiza tu cabello, el clima y tu objetivo del día para recomendarte la combinación ideal de boosters y gotas.",
+    "cta": "COMENZAR DIAGNÓSTICO IA ✦",
+    "features": [
+      { "icon": "🔬", "label": "Análisis capilar avanzado" },
+      { "icon": "🎯", "label": "Recomendación personalizada" },
+      { "icon": "👁️", "label": "Resultados visibles" }
+    ]
+  },
+  "trustBar": [
+    { "icon": "🌿", "label": "Ingredientes premium y sostenibles" },
+    { "icon": "⚗️", "label": "Desarrollado con ciencia" },
+    { "icon": "🚫", "label": "Libre de parabenos, sulfitos y siliconas" },
+    { "icon": "🐰", "label": "Cruelty free & vegano" }
+  ],
+  "footer": {
+    "nav": {
+      "title": "NAVEGACIÓN",
+      "links": ["Inicio", "Producto", "Boosters", "Sistema IA", "Ciencia"]
+    },
+    "ayuda": {
+      "title": "AYUDA",
+      "links": ["Preguntas frecuentes", "Guía de uso", "Envíos y devoluciones", "Contáctanos"]
+    },
+    "newsletter": {
+      "title": "SUSCRÍBETE",
+      "desc": "Recibe contenido exclusivo, tips y lanzamientos."
+    },
+    "social": ["tiktok", "instagram", "youtube"],
+    "legal": "© 2026 Luxéra Hair System. Todos los derechos reservados.",
+    "legalLinks": ["Términos y condiciones", "Política de privacidad"]
+  }
+}
