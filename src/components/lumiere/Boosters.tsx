@@ -57,12 +57,6 @@ const Boosters = () => {
           </article>
         ))}
       </div>
-
-      <div className="text-center mt-12">
-        <button className="inline-flex items-center gap-3 px-7 py-4 border border-gold text-gold text-[11px] tracking-[0.2em] font-semibold hover:bg-gold hover:text-background transition-colors">
-          COMPARAR BOOSTERS ⚖️
-        </button>
-      </div>
     </section>
   );
 };

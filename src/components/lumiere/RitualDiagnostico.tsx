@@ -26,12 +26,6 @@ const RitualDiagnostico = () => {
               </li>
             ))}
           </ol>
-          <a
-            href="#guia"
-            className="inline-block mt-8 text-[11px] tracking-[0.2em] font-semibold text-background border-b border-background/40 pb-1 hover:text-gold-dim hover:border-gold-dim transition-colors"
-          >
-            {r.cta}
-          </a>
         </div>
         <div className="img-placeholder aspect-square bg-cream-2 text-background/40">imagen ritual</div>
       </div>
