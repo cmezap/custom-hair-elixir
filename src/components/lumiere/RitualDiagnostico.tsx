@@ -1,4 +1,5 @@
 import data from "@/data/site.json";
+import { Link } from "react-router-dom";
 
 const RitualDiagnostico = () => {
   const r = data.ritual;
@@ -41,9 +42,12 @@ const RitualDiagnostico = () => {
           <p className="eyebrow">{d.eyebrow}</p>
           <h2 className="font-display text-4xl text-cream mb-6 leading-tight">{d.title}</h2>
           <p className="text-cream/60 text-sm leading-relaxed mb-8">{d.description}</p>
-          <button className="bg-gold text-background px-6 py-4 text-[11px] tracking-[0.2em] font-semibold hover:bg-gold-light transition-colors mb-8">
+          <Link
+            to="/diagnostico"
+            className="inline-block bg-gold text-background px-6 py-4 text-[11px] tracking-[0.2em] font-semibold hover:bg-gold-light transition-colors mb-8"
+          >
             {d.cta}
-          </button>
+          </Link>
           <div className="grid grid-cols-3 gap-4">
             {d.features.map((f) => (
               <div key={f.label} className="text-center">
