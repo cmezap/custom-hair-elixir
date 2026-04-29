@@ -1,5 +1,6 @@
 import data from "@/data/site.json";
 import heroImg from "@/assets/hero-luxe.jpg";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const { headline, subtext, ctas, badges } = data.hero;
@@ -28,19 +29,25 @@ const Hero = () => {
           </h1>
           <p className="text-cream/80 max-w-md mb-10 leading-relaxed text-sm">{subtext}</p>
           <div className="flex flex-wrap gap-4">
-            {ctas.map((c) => (
-              <a
-                key={c.label}
-                href={c.href}
-                className={`inline-flex items-center gap-2 px-7 py-4 text-[11px] font-semibold tracking-[0.2em] transition-all ${
-                  c.type === "primary"
-                    ? "bg-gold text-background hover:bg-gold-light"
-                    : "border border-gold text-gold hover:bg-gold/10"
-                }`}
-              >
-                {c.label}
-              </a>
-            ))}
+            {ctas.map((c) => {
+              const cls = `inline-flex items-center gap-2 px-7 py-4 text-[11px] font-semibold tracking-[0.2em] transition-all ${
+                c.type === "primary"
+                  ? "bg-gold text-background hover:bg-gold-light"
+                  : "border border-gold text-gold hover:bg-gold/10"
+              }`;
+              if (c.href === "#sistema-ia") {
+                return (
+                  <Link key={c.label} to="/diagnostico" className={cls}>
+                    {c.label}
+                  </Link>
+                );
+              }
+              return (
+                <a key={c.label} href={c.href} className={cls}>
+                  {c.label}
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>

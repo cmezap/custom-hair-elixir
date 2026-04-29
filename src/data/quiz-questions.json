@@ -1,0 +1,25 @@
+{
+  "intro": {
+    "eyebrow": "DIAGNÓSTICO IA ✦",
+    "title": "Tu cabello, analizado.",
+    "subtitle": "Responde 15 preguntas rápidas y nuestro sistema construirá la combinación ideal de crema base y boosters para ti.",
+    "cta": "COMENZAR DIAGNÓSTICO"
+  },
+  "questions": [
+    { "id": "tipo",         "icon": "🧬", "label": "¿Cómo describirías tu tipo de cabello?", "options": ["Liso","Ondulado","Rizado","Muy rizado / afro"] },
+    { "id": "grosor",       "icon": "🪞", "label": "¿Tu cabello es…?", "options": ["Fino","Medio","Grueso"] },
+    { "id": "densidad",     "icon": "🌾", "label": "¿Qué tanta cantidad de cabello tienes?", "options": ["Baja densidad","Media","Alta densidad"] },
+    { "id": "dano",         "icon": "🩹", "label": "¿Qué tan dañado sientes tu cabello?", "options": ["Bajo","Medio","Alto"] },
+    { "id": "frizz",        "icon": "🌬️", "label": "¿Cuánto frizz tienes normalmente?", "options": ["Bajo","Medio","Alto"] },
+    { "id": "calor",        "icon": "🔥", "label": "¿Con qué frecuencia usas herramientas de calor (secador, plancha)?", "options": ["Nunca","Ocasional","Frecuente"] },
+    { "id": "clima",        "icon": "☁️", "label": "¿Cómo es el clima donde estás hoy?", "options": ["Seco","Templado","Húmedo"] },
+    { "id": "estadoHoy",    "icon": "💧", "label": "Hoy tu cabello se siente más…", "options": ["Seco","Normal","Graso"] },
+    { "id": "objetivo",     "icon": "🎯", "label": "¿Qué quieres lograr hoy?", "options": ["Suavidad","Control de frizz","Volumen","Definición de rizos","Protección térmica"] },
+    { "id": "brillo",       "icon": "✨", "label": "¿Sientes que tu cabello necesita más brillo?", "options": ["Sí","No"] },
+    { "id": "manejabilidad","icon": "🤲", "label": "¿Tu cabello es difícil de manejar?", "options": ["Sí","No"] },
+    { "id": "quimicos",     "icon": "⚗️", "label": "¿Tu cabello ha sido tratado químicamente?", "options": ["No","Sí, teñido","Sí, decolorado","Sí, alisado químicamente"] },
+    { "id": "tiempo",       "icon": "⏱️", "label": "¿Cuánto tiempo tienes para arreglar tu cabello hoy?", "options": ["Poco (rápido)","Normal","Completo"] },
+    { "id": "sensacion",    "icon": "🌸", "label": "¿Cómo quieres que se sienta tu cabello?", "options": ["Ligero","Sedoso","Definido","Controlado"] },
+    { "id": "longitud",     "icon": "📏", "label": "¿Cuál es la longitud de tu cabello?", "options": ["Corto","Medio","Largo"] }
+  ]
+}

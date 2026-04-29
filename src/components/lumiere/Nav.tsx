@@ -1,4 +1,5 @@
 import data from "@/data/site.json";
+import { Link } from "react-router-dom";
 
 const Nav = () => (
   <nav className="fixed top-0 inset-x-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40">
@@ -21,12 +22,12 @@ const Nav = () => (
           </li>
         ))}
       </ul>
-      <a
-        href="#sistema-ia"
+      <Link
+        to="/diagnostico"
         className="hidden md:inline-flex items-center gap-2 px-5 py-3 border border-gold text-gold text-[11px] tracking-[0.2em] font-semibold hover:bg-gold hover:text-background transition-colors"
       >
         DIAGNÓSTICO IA ✦
-      </a>
+      </Link>
     </div>
   </nav>
 );
