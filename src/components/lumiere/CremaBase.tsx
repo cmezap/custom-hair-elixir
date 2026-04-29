@@ -42,13 +42,6 @@ const CremaBase = () => {
               </li>
             ))}
           </ul>
-          <a
-            href="#ciencia"
-            className="inline-flex items-center justify-between gap-4 px-5 py-4 border border-background/30 text-[10px] font-semibold tracking-[0.2em] uppercase hover:bg-background hover:text-cream transition-colors"
-          >
-            <span>{c.cta}</span>
-            <span>⚗️</span>
-          </a>
         </div>
       </div>
     </section>
