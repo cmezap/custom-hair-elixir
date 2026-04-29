@@ -2,6 +2,9 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import quiz from "@/data/quiz-questions.json";
 import data from "@/data/site.json";
+import { buildRecommendation } from "@/lib/recommendation";
+import cremaImg from "@/assets/crema-base.jpg";
+import boosterImg from "@/assets/booster.jpg";
 
 type Answers = Record<string, string>;
 
@@ -18,6 +21,11 @@ const Diagnostico = () => {
 
   const current = questions[step];
   const progress = useMemo(() => Math.round(((step + (submitted ? 1 : 0)) / total) * 100), [step, submitted, total]);
+
+  const recommendation = useMemo(
+    () => (submitted ? buildRecommendation(answers) : null),
+    [submitted, answers]
+  );
 
   const select = (value: string) => {
     const next = { ...answers, [current.id]: value };
@@ -188,18 +196,109 @@ const Diagnostico = () => {
 
           {/* RESULT */}
           {submitted && (
-            <div className="max-w-2xl mx-auto text-center animate-fade-up">
-              <p className="eyebrow">DIAGNÓSTICO COMPLETO ✦</p>
-              <h1 className="font-display text-5xl md:text-6xl text-cream mb-6 leading-tight">
-                Gracias por <span className="italic text-gold">compartirnos</span> tu cabello.
-              </h1>
-              <p className="text-cream/70 text-sm leading-relaxed mb-10 max-w-md mx-auto">
-                Hemos guardado tus respuestas. Pronto nuestro sistema IA te recomendará la combinación ideal de boosters y número de gotas según tu perfil.
-              </p>
+            <div className="max-w-5xl mx-auto animate-fade-up">
+              {/* Header */}
+              <div className="text-center mb-14">
+                <p className="eyebrow">TU FÓRMULA IA ✦</p>
+                <h1 className="font-display text-4xl md:text-6xl text-cream mb-6 leading-tight">
+                  Tu ritual <span className="italic text-gold">personalizado</span>
+                </h1>
+                <p className="text-cream/70 text-sm md:text-base leading-relaxed max-w-xl mx-auto">
+                  {recommendation?.summary}
+                </p>
+              </div>
 
-              <div className="bg-dark-2 border border-border/60 p-6 text-left mb-10 max-h-72 overflow-auto">
-                <p className="text-[10px] tracking-[0.2em] text-gold mb-4">TUS RESPUESTAS</p>
-                <ul className="space-y-3">
+              {/* IA Phrase */}
+              <div className="relative bg-gradient-to-br from-dark-2 to-dark-3 border border-gold/30 p-8 md:p-10 mb-12 overflow-hidden">
+                <div className="absolute top-4 left-6 text-gold/20 font-display text-7xl leading-none select-none">"</div>
+                <div className="relative pl-8">
+                  <p className="text-[10px] tracking-[0.3em] text-gold mb-4">RECOMENDACIÓN IA</p>
+                  <p className="font-display text-xl md:text-2xl text-cream italic leading-relaxed">
+                    {recommendation?.phrase}
+                  </p>
+                </div>
+              </div>
+
+              {/* Recipe grid */}
+              <div className="grid md:grid-cols-3 gap-5 mb-12">
+                {/* Crema base card */}
+                <article className="md:col-span-1 bg-dark-2 border border-border/60 p-6 flex flex-col">
+                  <div className="aspect-[3/4] mb-5 overflow-hidden bg-dark-3 relative">
+                    <img
+                      src={cremaImg}
+                      alt="Crema base LUMIÈRE"
+                      width={768}
+                      height={1024}
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-3 left-3 bg-gold text-background text-[9px] tracking-[0.2em] px-2 py-1 font-semibold">
+                      BASE
+                    </div>
+                  </div>
+                  <p className="text-[10px] tracking-[0.2em] text-gold mb-2">PASO 01</p>
+                  <h3 className="font-display text-2xl text-cream mb-3">Crema base</h3>
+                  <div className="flex items-baseline gap-2 mb-3">
+                    <span className="font-display text-5xl text-gold">{recommendation?.pumps}</span>
+                    <span className="text-cream/70 text-sm tracking-[0.15em] uppercase">
+                      pump{(recommendation?.pumps ?? 1) > 1 ? "s" : ""}
+                    </span>
+                  </div>
+                  <p className="text-cream/60 text-xs leading-relaxed mt-auto">
+                    Dispensa en la palma de tu mano como base hidratante de tu mezcla.
+                  </p>
+                </article>
+
+                {/* Boosters cards */}
+                {recommendation?.boosters.map((b, idx) => (
+                  <article
+                    key={b.id}
+                    className="bg-dark-2 border border-border/60 p-6 flex flex-col"
+                  >
+                    <div className="aspect-[3/4] mb-5 overflow-hidden bg-dark-3 relative">
+                      <img
+                        src={boosterImg}
+                        alt={`Booster ${b.id} - ${b.name}`}
+                        width={768}
+                        height={1024}
+                        loading="lazy"
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute top-3 left-3 bg-cream text-background text-[9px] tracking-[0.2em] px-2 py-1 font-semibold">
+                        BOOSTER {b.id}
+                      </div>
+                    </div>
+                    <p className="text-[10px] tracking-[0.2em] text-gold mb-2">
+                      PASO {String(idx + 2).padStart(2, "0")}
+                    </p>
+                    <h3 className="font-display text-2xl text-cream mb-3">{b.name}</h3>
+                    <div className="flex items-baseline gap-2 mb-3">
+                      <span className="font-display text-5xl text-gold">{b.drops}</span>
+                      <span className="text-cream/70 text-sm tracking-[0.15em] uppercase">gotas</span>
+                    </div>
+                    <p className="text-cream/60 text-xs leading-relaxed mt-auto">{b.reason}</p>
+                  </article>
+                ))}
+
+                {/* Fill column if only 1 booster */}
+                {recommendation && recommendation.boosters.length === 1 && (
+                  <article className="bg-dark-2/40 border border-dashed border-border/60 p-6 flex flex-col items-center justify-center text-center">
+                    <span className="text-4xl mb-4 opacity-60">🤲</span>
+                    <p className="text-[10px] tracking-[0.2em] text-gold mb-2">PASO 03</p>
+                    <h3 className="font-display text-xl text-cream mb-3">Mezcla y aplica</h3>
+                    <p className="text-cream/60 text-xs leading-relaxed">
+                      Combina en tus manos y aplica de medios a puntas con movimientos suaves.
+                    </p>
+                  </article>
+                )}
+              </div>
+
+              {/* Answers summary */}
+              <details className="bg-dark-2 border border-border/60 mb-10">
+                <summary className="cursor-pointer p-5 text-[11px] tracking-[0.2em] text-gold hover:bg-dark-3 transition-colors">
+                  VER TUS RESPUESTAS DEL DIAGNÓSTICO
+                </summary>
+                <ul className="space-y-3 p-5 pt-0 max-h-72 overflow-auto">
                   {questions.map((q) => (
                     <li key={q.id} className="flex justify-between gap-4 text-xs border-b border-border/40 pb-2">
                       <span className="text-cream/60">{q.label}</span>
@@ -207,7 +306,7 @@ const Diagnostico = () => {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </details>
 
               <div className="flex flex-wrap justify-center gap-4">
                 <button
