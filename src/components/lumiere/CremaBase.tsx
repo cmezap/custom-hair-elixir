@@ -1,12 +1,20 @@
 import data from "@/data/site.json";
+import placeholder from "@/assets/placeholder-product.jpg";
 
 const CremaBase = () => {
   const c = data.cremaBase;
   return (
     <section id="producto" className="bg-cream text-background">
       <div className="grid lg:grid-cols-[1fr_1.2fr_1fr] min-h-[600px]">
-        <div className="img-placeholder min-h-[420px] lg:min-h-full bg-gradient-to-br from-cream-2 to-cream-3 text-background/40">
-          imagen crema
+        <div className="min-h-[420px] lg:min-h-full bg-cream-2 overflow-hidden">
+          <img
+            src={placeholder}
+            alt="Crema base LUMIÈRE"
+            loading="lazy"
+            width={768}
+            height={1024}
+            className="w-full h-full object-cover"
+          />
         </div>
 
         <div className="p-12 lg:p-16 flex flex-col justify-center">
