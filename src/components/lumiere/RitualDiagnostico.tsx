@@ -1,5 +1,6 @@
 import data from "@/data/site.json";
 import { Link } from "react-router-dom";
+import ritualImg from "@/assets/ritual-gotas.png";
 
 const RitualDiagnostico = () => {
   const r = data.ritual;
@@ -7,8 +8,8 @@ const RitualDiagnostico = () => {
   return (
     <section id="sistema-ia" className="grid lg:grid-cols-2">
       {/* Ritual / Guía */}
-      <div className="bg-cream text-background p-12 lg:p-16 grid md:grid-cols-2 gap-10 items-center">
-        <div>
+      <div className="bg-cream text-background grid md:grid-cols-2 gap-0 items-stretch">
+        <div className="p-12 lg:p-16 flex flex-col justify-center">
           <p className="eyebrow text-gold-dim">{r.eyebrow}</p>
           <h2 className="font-display text-4xl text-background mb-8 leading-tight">{r.title}</h2>
           <ol className="space-y-6">
@@ -27,7 +28,14 @@ const RitualDiagnostico = () => {
             ))}
           </ol>
         </div>
-        <div className="img-placeholder aspect-square bg-cream-2 text-background/40">imagen ritual</div>
+        <div className="bg-cream-2 overflow-hidden min-h-[420px] md:min-h-full">
+          <img
+            src={ritualImg}
+            alt="Ritual LUMIÈRE — gotas de booster sobre crema"
+            loading="lazy"
+            className="w-full h-full object-cover"
+          />
+        </div>
       </div>
 
       {/* Diagnóstico IA */}
