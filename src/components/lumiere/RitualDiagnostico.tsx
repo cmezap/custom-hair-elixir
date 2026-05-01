@@ -6,10 +6,10 @@ const RitualDiagnostico = () => {
   const r = data.ritual;
   const d = data.diagnosticoIA;
   return (
-    <section id="sistema-ia" className="grid lg:grid-cols-2">
+    <section id="sistema-ia" className="grid md:grid-cols-2">
       {/* Ritual / Guía */}
-      <div className="bg-cream text-background grid md:grid-cols-2 gap-0 items-stretch">
-        <div className="p-12 lg:p-16 flex flex-col justify-center">
+      <div className="bg-cream text-background grid grid-cols-1 sm:grid-cols-2 gap-0 items-stretch">
+        <div className="p-8 md:p-10 lg:p-16 flex flex-col justify-center">
           <p className="eyebrow text-gold-dim">{r.eyebrow}</p>
           <h2 className="font-display text-4xl text-background mb-8 leading-tight">{r.title}</h2>
           <ol className="space-y-6">
@@ -28,7 +28,7 @@ const RitualDiagnostico = () => {
             ))}
           </ol>
         </div>
-        <div className="bg-cream-2 overflow-hidden min-h-[420px] md:min-h-full">
+        <div className="bg-cream-2 overflow-hidden min-h-[280px] sm:min-h-full">
           <img
             src={ritualImg}
             alt="Ritual LUMIÈRE — gotas de booster sobre crema"
@@ -39,7 +39,7 @@ const RitualDiagnostico = () => {
       </div>
 
       {/* Diagnóstico IA */}
-      <div className="bg-dark-2 p-12 lg:p-16 grid md:grid-cols-[1.2fr_1fr] gap-10 items-center">
+      <div className="bg-dark-2 p-8 md:p-10 lg:p-16 grid grid-cols-1 sm:grid-cols-[1.2fr_1fr] gap-10 items-center">
         <div>
           <p className="eyebrow">{d.eyebrow}</p>
           <h2 className="font-display text-4xl text-cream mb-6 leading-tight">{d.title}</h2>
@@ -61,7 +61,7 @@ const RitualDiagnostico = () => {
             ))}
           </div>
         </div>
-        <div className="img-placeholder aspect-[9/16] rounded-2xl border-4 border-dark-4">mockup app</div>
+        <div className="img-placeholder aspect-[9/16] max-h-[420px] sm:max-h-none mx-auto w-full rounded-2xl border-4 border-dark-4">mockup app</div>
       </div>
     </section>
   );
