@@ -1,5 +1,5 @@
 import data from "@/data/site.json";
-import placeholder from "@/assets/placeholder-product.jpg";
+import cremaImg from "@/assets/crema-lumiere.png";
 
 const CremaBase = () => {
   const c = data.cremaBase;
@@ -8,7 +8,7 @@ const CremaBase = () => {
       <div className="grid lg:grid-cols-[1fr_1.2fr_1fr] min-h-[600px]">
         <div className="min-h-[420px] lg:min-h-full bg-cream-2 overflow-hidden">
           <img
-            src={placeholder}
+            src={cremaImg}
             alt="Crema base LUMIÈRE"
             loading="lazy"
             width={768}
