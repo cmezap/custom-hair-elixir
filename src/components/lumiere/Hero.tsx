@@ -1,9 +1,9 @@
 import data from "@/data/site.json";
 import heroImg from "@/assets/hero-luxe.jpg";
 import { Link } from "react-router-dom";
-import { SlidersHorizontal, Leaf, FlaskConical, Sparkles } from "lucide-react";
+import { SlidersHorizontal, Leaf, FlaskConical, Sparkles, type LucideIcon } from "lucide-react";
 
-const badgeIcons: Record<string, React.ComponentType<{ className?: string; strokeWidth?: number }>> = {
+const badgeIcons: Record<string, LucideIcon> = {
   Personalizable: SlidersHorizontal,
   "Ingredientes premium": Leaf,
   "Ciencia + Naturaleza": FlaskConical,
