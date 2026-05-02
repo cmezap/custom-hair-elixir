@@ -1,6 +1,14 @@
 import data from "@/data/site.json";
 import heroImg from "@/assets/hero-luxe.jpg";
 import { Link } from "react-router-dom";
+import { SlidersHorizontal, Leaf, FlaskConical, Sparkles, type LucideIcon } from "lucide-react";
+
+const badgeIcons: Record<string, LucideIcon> = {
+  Personalizable: SlidersHorizontal,
+  "Ingredientes premium": Leaf,
+  "Ciencia + Naturaleza": FlaskConical,
+  "Resultados visibles": Sparkles,
+};
 
 const Hero = () => {
   const { headline, subtext, ctas, badges } = data.hero;
@@ -57,8 +65,11 @@ const Hero = () => {
         <div className="container-luxe grid grid-cols-2 md:grid-cols-4 gap-6 py-6">
           {badges.map((b) => (
             <div key={b.label} className="flex items-center gap-3 text-cream/80">
-              <span className="w-9 h-9 rounded-full border border-gold/40 flex items-center justify-center text-gold text-base">
-                {b.icon}
+              <span className="w-9 h-9 rounded-full border border-gold/40 flex items-center justify-center text-gold">
+                {(() => {
+                  const Icon = badgeIcons[b.label];
+                  return Icon ? <Icon className="w-4 h-4" strokeWidth={1.5} /> : <span className="text-base">{b.icon}</span>;
+                })()}
               </span>
               <span className="text-[11px] tracking-[0.15em] uppercase">{b.label}</span>
             </div>
