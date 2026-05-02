@@ -1,4 +1,5 @@
 import data from "@/data/site.json";
+import { lumiereIcons } from "./icons";
 
 const Footer = () => {
   const f = data.footer;
@@ -7,12 +8,17 @@ const Footer = () => {
       {/* Trust bar */}
       <div className="border-b border-border/60">
         <div className="container-luxe grid grid-cols-2 md:grid-cols-4 gap-6 py-10">
-          {data.trustBar.map((t) => (
-            <div key={t.label} className="flex items-center gap-3 text-cream/70">
-              <span className="text-gold text-lg">{t.icon}</span>
-              <span className="text-[11px] tracking-[0.1em] uppercase leading-snug">{t.label}</span>
-            </div>
-          ))}
+          {data.trustBar.map((t) => {
+            const Icon = lumiereIcons[t.label];
+            return (
+              <div key={t.label} className="flex items-center gap-3 text-cream/70">
+                <span className="w-9 h-9 rounded-full border border-gold/40 flex items-center justify-center text-gold shrink-0">
+                  {Icon ? <Icon className="w-4 h-4" strokeWidth={1.5} /> : <span className="text-base">{t.icon}</span>}
+                </span>
+                <span className="text-[11px] tracking-[0.1em] uppercase leading-snug">{t.label}</span>
+              </div>
+            );
+          })}
         </div>
       </div>
 
