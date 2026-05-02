@@ -1,5 +1,19 @@
 import data from "@/data/site.json";
-import placeholder from "@/assets/placeholder-product.jpg";
+import booster1 from "@/assets/Booster1.png";
+import booster2 from "@/assets/Booster2.png";
+import booster3 from "@/assets/Booster3.png";
+import booster4 from "@/assets/Booster4.png";
+import booster5 from "@/assets/Booster5.png";
+import booster6 from "@/assets/Booster6.png";
+
+const boosterImages: Record<number, string> = {
+  1: booster1,
+  2: booster2,
+  3: booster3,
+  4: booster4,
+  5: booster5,
+  6: booster6,
+};
 
 const Boosters = () => {
   const b = data.boosters;
@@ -24,7 +38,7 @@ const Boosters = () => {
             </div>
             <div className="aspect-[3/4] mb-5 relative bg-dark overflow-hidden">
               <img
-                src={placeholder}
+                src={boosterImages[item.id as number]}
                 alt={`Booster ${item.id} ${item.name}`}
                 loading="lazy"
                 width={768}

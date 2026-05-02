@@ -5,8 +5,21 @@ import data from "@/data/site.json";
 import { buildRecommendation, type Recommendation } from "@/lib/recommendation";
 import { getGeminiRecommendation, ENV_API_KEY } from "@/lib/gemini";
 import cremaImg from "@/assets/crema-base.jpg";
-import boosterImg from "@/assets/booster.jpg";
+import booster1 from "@/assets/Booster1.png";
+import booster2 from "@/assets/Booster2.png";
+import booster3 from "@/assets/Booster3.png";
+import booster4 from "@/assets/Booster4.png";
+import booster5 from "@/assets/Booster5.png";
+import booster6 from "@/assets/Booster6.png";
 
+const boosterImages: Record<number | string, string> = {
+  1: booster1,
+  2: booster2,
+  3: booster3,
+  4: booster4,
+  5: booster5,
+  6: booster6,
+};
 type Answers = Record<string, string>;
 type AppState = "apikey" | "intro" | "quiz" | "loading" | "result";
 
@@ -454,7 +467,7 @@ const Diagnostico = () => {
                   <article key={b.id} className="bg-dark-2 border border-border/60 p-6 flex flex-col">
                     <div className="aspect-[3/4] mb-5 overflow-hidden bg-dark-3 relative">
                       <img
-                        src={boosterImg}
+                        src={boosterImages[b.id] || boosterImages[1]}
                         alt={`Booster ${b.id} - ${b.name}`}
                         width={768}
                         height={1024}
