@@ -1,5 +1,6 @@
 import data from "@/data/site.json";
 import cremaImg from "@/assets/crema-lumiere.png";
+import { lumiereIcons } from "./icons";
 
 const CremaBase = () => {
   const c = data.cremaBase;
@@ -22,14 +23,17 @@ const CremaBase = () => {
           <h2 className="font-display text-4xl md:text-5xl text-background mb-6 leading-tight">{c.title}</h2>
           <p className="text-background/70 text-sm leading-relaxed mb-10 max-w-md">{c.description}</p>
           <div className="grid grid-cols-2 gap-5">
-            {c.benefits.map((b) => (
-              <div key={b.label} className="flex items-start gap-3">
-                <span className="w-9 h-9 shrink-0 rounded-full border border-gold-dim/40 flex items-center justify-center text-gold-dim">
-                  {b.icon}
-                </span>
-                <span className="text-xs text-background/80 leading-snug pt-2">{b.label}</span>
-              </div>
-            ))}
+            {c.benefits.map((b) => {
+              const Icon = lumiereIcons[b.label];
+              return (
+                <div key={b.label} className="flex items-start gap-3">
+                  <span className="w-9 h-9 shrink-0 rounded-full border border-gold-dim/40 flex items-center justify-center text-gold-dim">
+                    {Icon ? <Icon className="w-4 h-4" strokeWidth={1.5} /> : <span>{b.icon}</span>}
+                  </span>
+                  <span className="text-xs text-background/80 leading-snug pt-2">{b.label}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
 
