@@ -2,6 +2,7 @@ import data from "@/data/site.json";
 import { Link } from "react-router-dom";
 import ritualImg from "@/assets/ritual-gotas.png";
 import diagnosticoImg from "@/assets/diagnostico-mockup.png";
+import { lumiereIcons } from "./icons";
 
 const RitualDiagnostico = () => {
   const r = data.ritual;
@@ -14,10 +15,12 @@ const RitualDiagnostico = () => {
           <p className="eyebrow text-gold-dim">{r.eyebrow}</p>
           <h2 className="font-display text-4xl text-background mb-8 leading-tight">{r.title}</h2>
           <ol className="space-y-6">
-            {r.pasos.map((p) => (
+            {r.pasos.map((p) => {
+              const Icon = lumiereIcons[p.title];
+              return (
               <li key={p.num} className="flex gap-4">
                 <span className="w-10 h-10 shrink-0 rounded-full border border-gold-dim/50 flex items-center justify-center text-gold-dim">
-                  {p.icon}
+                  {Icon ? <Icon className="w-4 h-4" strokeWidth={1.5} /> : <span>{p.icon}</span>}
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-background mb-1">
@@ -26,7 +29,8 @@ const RitualDiagnostico = () => {
                   <p className="text-xs text-background/70 leading-relaxed">{p.desc}</p>
                 </div>
               </li>
-            ))}
+              );
+            })}
           </ol>
         </div>
         <div className="bg-cream-2 overflow-hidden min-h-[280px] sm:min-h-full">
