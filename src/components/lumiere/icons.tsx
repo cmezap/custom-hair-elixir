@@ -12,6 +12,16 @@ import {
   FlaskRound,
   Ban,
   Rabbit,
+  Waves,
+  ShieldAlert,
+  ShieldCheck,
+  Wind,
+  Thermometer,
+  CloudSun,
+  Target,
+  Lightbulb,
+  Lock,
+  Pipette,
   type LucideIcon,
 } from "lucide-react";
 
@@ -42,6 +52,24 @@ export const lumiereIcons: Record<string, LucideIcon> = {
   "Desarrollado con ciencia": FlaskRound,
   "Libre de parabenos, sulfitos y siliconas": Ban,
   "Cruelty free & vegano": Rabbit,
+
+  // Diagnóstico — perfil de hoy
+  Cabello: Waves,
+  "Daño": ShieldAlert,
+  Frizz: Wind,
+  "Exposición al calor": Thermometer,
+  Clima: CloudSun,
+  Objetivo: Target,
+
+  // Recomendación IA — fila de virtudes
+  "Nutre en profundidad": Droplet,
+  "Protege del calor": ShieldCheck,
+  "Controla el frizz y aporta suavidad": Sparkles,
+
+  // Otros
+  Tips: Lightbulb,
+  Lock,
+  Pipette,
 };
 
 export { type LucideIcon };
