@@ -4,7 +4,7 @@ import quiz from "@/data/quiz-questions.json";
 import data from "@/data/site.json";
 import { buildRecommendation, type Recommendation } from "@/lib/recommendation";
 import { getGeminiRecommendation, ENV_API_KEY } from "@/lib/gemini";
-import cremaImg from "@/assets/crema-lumiere.png";
+import cremaImg from "@/assets/crema-pump.png";
 import heroImg from "@/assets/hero-luxe.jpg";
 import booster1 from "@/assets/Booster1.png";
 import booster2 from "@/assets/Booster2.png";
@@ -460,30 +460,16 @@ const Diagnostico = () => {
                       para tu cabello hoy.
                     </p>
                   </div>
-                  <div className="hidden lg:block">
+                  <div className="hidden lg:block relative">
                     <img
                       src={heroImg}
                       alt="LUMIÈRE — combinación personalizada"
                       className="w-full h-[320px] object-cover"
                     />
-                  </div>
-                  <div className="lg:hidden">
-                    <button
-                      onClick={downloadJSON}
-                      className="inline-flex items-center gap-2 border border-gold/40 text-gold px-5 py-3 text-[11px] tracking-[0.2em] hover:bg-gold/10 transition-colors"
-                    >
-                      DESCARGAR RESULTADO <Download className="w-4 h-4" strokeWidth={1.5} />
-                    </button>
+                    <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/40 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark/70 via-transparent to-transparent" />
                   </div>
                 </div>
-
-                {/* Floating download (desktop) */}
-                <button
-                  onClick={downloadJSON}
-                  className="hidden lg:inline-flex absolute top-10 right-12 items-center gap-2 border border-gold/40 text-gold px-5 py-3 text-[10px] tracking-[0.25em] hover:bg-gold/10 transition-colors rounded-full"
-                >
-                  DESCARGAR RESULTADO <Download className="w-4 h-4" strokeWidth={1.5} />
-                </button>
 
                 {/* Profile bar */}
                 <div className="mt-12 border border-gold/30 bg-dark-2/60 px-6 py-5">
@@ -746,12 +732,6 @@ const Diagnostico = () => {
             {/* Actions */}
             <div className="bg-dark py-10">
               <div className="container-luxe flex flex-wrap justify-center gap-4">
-                <button
-                  onClick={downloadJSON}
-                  className="bg-gold text-background px-7 py-4 text-[11px] tracking-[0.2em] font-semibold hover:bg-gold-light transition-colors"
-                >
-                  DESCARGAR JSON ↓
-                </button>
                 <button
                   onClick={reset}
                   className="border border-gold text-gold px-7 py-4 text-[11px] tracking-[0.2em] font-semibold hover:bg-gold/10 transition-colors"
