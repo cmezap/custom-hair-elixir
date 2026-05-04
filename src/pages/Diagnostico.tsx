@@ -23,7 +23,6 @@ import {
   Lock,
   Lightbulb,
   Pipette,
-  Download,
   Sparkles,
   ShieldCheck,
 } from "lucide-react";
