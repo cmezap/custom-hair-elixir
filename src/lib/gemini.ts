@@ -2,7 +2,6 @@ import type { Recommendation } from "./recommendation";
 
 type Answers = Record<string, string>;
 
-/** Resolved from VITE_GEMINI_API_KEY env var, or falls back to empty string */
 export const ENV_API_KEY: string = import.meta.env.VITE_GEMINI_API_KEY ?? "";
 
 /** Labels for each question ID, used to build the readable summary sent to Gemini */
@@ -101,7 +100,7 @@ export async function getGeminiRecommendation(
   if (!response.ok) {
     const err = await response.json().catch(() => ({}));
     const msg = (err as { error?: { message?: string } })?.error?.message ?? response.statusText;
-    throw new Error(`Gemini API error: ${msg}`);
+    throw new Error(`Error del servicio de IA: ${msg}`);
   }
 
   const data = await response.json();
