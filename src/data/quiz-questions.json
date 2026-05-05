@@ -7,18 +7,30 @@
   },
   "questions": [
     { "id": "tipo",         "icon": "🧬", "label": "¿Cómo describirías tu tipo de cabello?", "options": ["Liso","Ondulado","Rizado","Muy rizado / afro"] },
-    { "id": "grosor",       "icon": "🪞", "label": "¿Tu cabello es…?", "options": ["Fino","Medio","Grueso"] },
+    { "id": "grosor",       "icon": "🪞", "label": "¿Tu cabello es…?", "options": [
+      { "label": "Fino", "desc": "Hebra delgada, casi invisible al tacto" },
+      { "label": "Medio", "desc": "Hebra perceptible, ni fina ni gruesa" },
+      { "label": "Grueso", "desc": "Hebra firme y notoria al tacto" }
+    ] },
     { "id": "densidad",     "icon": "🌾", "label": "¿Qué tanta cantidad de cabello tienes?", "options": ["Baja densidad","Media","Alta densidad"] },
     { "id": "dano",         "icon": "🩹", "label": "¿Qué tan dañado sientes tu cabello?", "options": ["Bajo","Medio","Alto"] },
-    { "id": "frizz",        "icon": "🌬️", "label": "¿Cuánto frizz tienes normalmente?", "options": ["Bajo","Medio","Alto"] },
+    { "id": "frizz",        "icon": "🌬️", "label": "¿Cuánto frizz tienes normalmente?", "description": "El frizz son esos cabellos rebeldes y encrespados que se levantan o se ven esponjados, especialmente con humedad.", "options": ["Bajo","Medio","Alto"] },
     { "id": "calor",        "icon": "🔥", "label": "¿Con qué frecuencia usas herramientas de calor (secador, plancha)?", "options": ["Nunca","Ocasional","Frecuente"] },
     { "id": "clima",        "icon": "☁️", "label": "¿Cómo es el clima donde estás hoy?", "options": ["Seco","Templado","Húmedo"] },
-    { "id": "estadoHoy",    "icon": "💧", "label": "Hoy tu cabello se siente más…", "options": ["Seco","Normal","Graso"] },
+    { "id": "estadoHoy",    "icon": "💧", "label": "Hoy tu cabello se siente más…", "options": [
+      { "label": "Seco", "desc": "Áspero, sin brillo o con puntas abiertas" },
+      { "label": "Normal", "desc": "Equilibrado, suave y manejable" },
+      { "label": "Graso", "desc": "Brilla en la raíz y se apelmaza rápido" }
+    ] },
     { "id": "objetivo",     "icon": "🎯", "label": "¿Qué quieres lograr hoy?", "options": ["Suavidad","Control de frizz","Volumen","Definición de rizos","Protección térmica"] },
     { "id": "brillo",       "icon": "✨", "label": "¿Sientes que tu cabello necesita más brillo?", "options": ["Sí","No"] },
     { "id": "manejabilidad","icon": "🤲", "label": "¿Tu cabello es difícil de manejar?", "options": ["Sí","No"] },
     { "id": "quimicos",     "icon": "⚗️", "label": "¿Tu cabello ha sido tratado químicamente?", "options": ["No","Sí, teñido","Sí, decolorado","Sí, alisado químicamente"] },
-    { "id": "tiempo",       "icon": "⏱️", "label": "¿Cuánto tiempo tienes para arreglar tu cabello hoy?", "options": ["Poco (rápido)","Normal","Completo"] },
+    { "id": "tiempo",       "icon": "⏱️", "label": "¿Cuánto tiempo tienes para arreglar tu cabello hoy?", "options": [
+      { "label": "Poco (rápido)", "desc": "5 a 10 min" },
+      { "label": "Normal", "desc": "10 a 30 min" },
+      { "label": "Completo", "desc": "Más de 30 min" }
+    ] },
     { "id": "sensacion",    "icon": "🌸", "label": "¿Cómo quieres que se sienta tu cabello?", "options": ["Ligero","Sedoso","Definido","Controlado"] },
     { "id": "longitud",     "icon": "📏", "label": "¿Cuál es la longitud de tu cabello?", "options": ["Corto","Medio","Largo"] }
   ]

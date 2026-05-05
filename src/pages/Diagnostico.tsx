@@ -279,7 +279,8 @@ const Diagnostico = () => {
     () => recommendation?.boosters.reduce((acc, b) => acc + b.drops, 0) ?? 0,
     [recommendation]
   );
-  const totalMezcla = (recommendation?.pumps ?? 0) * 3 + totalDrops; // approx grams
+  // Cada pump de crema base = 0.8 g, cada gota de booster = 0.02 g
+  const totalMezcla = ((recommendation?.pumps ?? 0) * 0.8 + totalDrops * 0.02).toFixed(2);
 
   const pickedIds = useMemo(
     () => new Set(recommendation?.boosters.map((b) => b.id) ?? []),
@@ -372,13 +373,17 @@ const Diagnostico = () => {
                     </span>
                     <p className="eyebrow !mb-0">{current.id}</p>
                   </div>
-                  <h2 className="font-display text-3xl md:text-4xl text-cream mb-10 leading-snug">
-                    {current.label}
-                  </h2>
-
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    {current.options.map((opt) => {
-                      const selected = answers[current.id] === opt;
+                   <h2 className="font-display text-3xl md:text-4xl text-cream mb-3 leading-snug">
+                     {current.label}
+                   </h2>
+                   {"description" in current && current.description && (
+                     <p className="text-sm text-cream/60 mb-8 max-w-2xl">{current.description}</p>
+                   )}
+                   <div className={`grid sm:grid-cols-2 gap-3 ${"description" in current && current.description ? "" : "mt-7"}`}>
+                     {current.options.map((rawOpt) => {
+                       const opt = typeof rawOpt === "string" ? rawOpt : rawOpt.label;
+                       const desc = typeof rawOpt === "string" ? null : rawOpt.desc;
+                       const selected = answers[current.id] === opt;
                       return (
                         <button
                           key={opt}
@@ -389,7 +394,10 @@ const Diagnostico = () => {
                               : "border-border/60 bg-dark-2 text-cream/80 hover:border-gold/60 hover:bg-dark-3"
                           }`}
                         >
-                          <span className="text-sm">{opt}</span>
+                           <span className="flex flex-col gap-1">
+                             <span className="text-sm">{opt}</span>
+                             {desc && <span className="text-[11px] text-cream/50">{desc}</span>}
+                           </span>
                           <span
                             className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
                               selected ? "border-gold bg-gold" : "border-cream/30 group-hover:border-gold"
@@ -545,7 +553,7 @@ const Diagnostico = () => {
                         <p className="text-[10px] tracking-[0.3em] text-background/60 mb-4">PUMPS</p>
                         <div className="h-px bg-background/15 my-3" />
                         <p className="text-xs text-background/70">
-                          ≈ {recommendation.pumps * 3} g
+                          ≈ {(recommendation.pumps * 0.8).toFixed(2)} g
                         </p>
                         <p className="text-[10px] text-background/50 mt-1">de crema base</p>
                       </div>
