@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import quiz from "@/data/quiz-questions.json";
 import data from "@/data/site.json";
 import { buildRecommendation, type Recommendation } from "@/lib/recommendation";
-import { getGeminiRecommendation, ENV_API_KEY } from "@/lib/gemini";
+import { getGeminiRecommendation, ENV_API_KEYS } from "@/lib/gemini";
 import cremaImg from "@/assets/crema-pump.png";
 import heroImg from "@/assets/hero-luxe.jpg";
 import booster1 from "@/assets/Booster1.png";
@@ -12,7 +12,7 @@ import booster3 from "@/assets/Booster3.png";
 import booster4 from "@/assets/Booster4.png";
 import booster5 from "@/assets/Booster5.png";
 import booster6 from "@/assets/Booster6.png";
-import keysRaw from "@/data/keys.txt?raw";
+
 import {
   Waves,
   ShieldAlert,
@@ -62,21 +62,10 @@ const STORAGE_KEY = "lumiere-diagnostico-respuestas";
 const APIKEY_STORAGE = "lumiere-ia-api-key";
 
 function resolveApiKeys(): string[] {
-  console.log("Leyendo contenido de keys.txt raw:", keysRaw);
-  // Prioridad 1: Claves en el archivo keys.txt
-  const fileKeys = keysRaw
-    .split(/\r?\n/)
-    .map((k) => k.trim())
-    .filter((k) => k && !k.startsWith("#") && !k.includes("API_KEY") && k.length > 20); // Filtrar placeholders y líneas cortas
+  // Prioridad 1: Variables de entorno (VITE_GEMINI_API_KEYS o VITE_GEMINI_API_KEY)
+  if (ENV_API_KEYS.length > 0) return ENV_API_KEYS;
 
-  console.log("Claves procesadas del archivo:", fileKeys.map(k => `${k.substring(0, 8)}...`));
-
-  if (fileKeys.length > 0) return fileKeys;
-
-  // Prioridad 2: Variable de entorno
-  if (ENV_API_KEY) return [ENV_API_KEY];
-
-  // Prioridad 3: LocalStorage (legacy)
+  // Prioridad 2: LocalStorage (para llaves manuales ingresadas por el usuario)
   const stored = localStorage.getItem(APIKEY_STORAGE);
   return stored ? [stored] : [];
 }

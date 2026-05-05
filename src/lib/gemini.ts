@@ -2,7 +2,10 @@ import type { Recommendation } from "./recommendation";
 
 type Answers = Record<string, string>;
 
-export const ENV_API_KEY: string = import.meta.env.VITE_GEMINI_API_KEY ?? "";
+export const ENV_API_KEYS: string[] = (import.meta.env.VITE_GEMINI_API_KEYS ?? import.meta.env.VITE_GEMINI_API_KEY ?? "")
+  .split(",")
+  .map((k) => k.trim())
+  .filter(Boolean);
 
 /** Labels for each question ID, used to build the readable summary sent to Gemini */
 const QUESTION_LABELS: Record<string, string> = {
@@ -77,8 +80,8 @@ RESPONDE ÚNICAMENTE con un objeto JSON válido con esta estructura exacta, sin 
 
 const MODELS = [
   "gemini-3.1-flash-lite-preview",
-  "gemini-1.5-flash",
-  "gemini-1.5-flash-8b"
+  "gemini-2.5-flash-lite",
+  "gemini-3-flash-preview"
 ];
 
 export async function getGeminiRecommendation(
@@ -90,7 +93,7 @@ export async function getGeminiRecommendation(
 
   for (const key of keys) {
     if (!key) continue;
-    
+
     for (const model of MODELS) {
       try {
         return await executeGeminiRequest(answers, key, model);
@@ -98,10 +101,10 @@ export async function getGeminiRecommendation(
         const errorMsg = err instanceof Error ? err.message : String(err);
         console.warn(`Error con API Key (${key.substring(0, 8)}) y modelo (${model}): ${errorMsg}`);
         lastError = err instanceof Error ? err : new Error(String(err));
-        
+
         // Si el error es de "alta demanda" o "no encontrado", intentamos el siguiente modelo
         if (errorMsg.includes("high demand") || errorMsg.includes("not found") || errorMsg.includes("404")) {
-          continue; 
+          continue;
         }
         // Si es un error de API Key (401/403), saltamos directamente a la siguiente clave
         if (errorMsg.includes("API_KEY_INVALID") || errorMsg.includes("401") || errorMsg.includes("403")) {
@@ -157,29 +160,29 @@ async function executeGeminiRequest(
       throw new Error("La IA no generó contenido.");
     }
 
-  // Strip markdown code fences if Gemini adds them despite responseMimeType
-  const cleaned = rawText.replace(/^```json\s*/i, "").replace(/```\s*$/i, "").trim();
+    // Strip markdown code fences if Gemini adds them despite responseMimeType
+    const cleaned = rawText.replace(/^```json\s*/i, "").replace(/```\s*$/i, "").trim();
 
-  let parsed: Recommendation;
-  try {
-    parsed = JSON.parse(cleaned) as Recommendation;
-  } catch {
-    throw new Error("La IA devolvió una respuesta inesperada. Intenta de nuevo.");
-  }
+    let parsed: Recommendation;
+    try {
+      parsed = JSON.parse(cleaned) as Recommendation;
+    } catch {
+      throw new Error("La IA devolvió una respuesta inesperada. Intenta de nuevo.");
+    }
 
-  // Validate & clamp just in case the model hallucinated
-  parsed.pumps = Math.max(2, Math.min(5, Number(parsed.pumps) || 3));
-  if (!Array.isArray(parsed.boosters) || parsed.boosters.length === 0) {
-    throw new Error("La IA no devolvió boosters válidos.");
-  }
-  parsed.boosters = parsed.boosters.slice(0, 2).map((b) => ({
-    ...b,
-    id: Number(b.id),
-    drops: Math.max(2, Math.min(6, Number(b.drops) || 3)),
-  }));
+    // Validate & clamp just in case the model hallucinated
+    parsed.pumps = Math.max(2, Math.min(5, Number(parsed.pumps) || 3));
+    if (!Array.isArray(parsed.boosters) || parsed.boosters.length === 0) {
+      throw new Error("La IA no devolvió boosters válidos.");
+    }
+    parsed.boosters = parsed.boosters.slice(0, 2).map((b) => ({
+      ...b,
+      id: Number(b.id),
+      drops: Math.max(2, Math.min(6, Number(b.drops) || 3)),
+    }));
 
-  return parsed;
-} catch (err) {
+    return parsed;
+  } catch (err) {
     console.error("Error en executeGeminiRequest:", err);
     throw err;
   }
