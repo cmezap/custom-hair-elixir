@@ -12,6 +12,7 @@ import booster3 from "@/assets/Booster3.png";
 import booster4 from "@/assets/Booster4.png";
 import booster5 from "@/assets/Booster5.png";
 import booster6 from "@/assets/Booster6.png";
+import keysRaw from "@/data/keys.txt?raw";
 import {
   Waves,
   ShieldAlert,
@@ -60,9 +61,24 @@ type AppState = "apikey" | "intro" | "quiz" | "loading" | "result";
 const STORAGE_KEY = "lumiere-diagnostico-respuestas";
 const APIKEY_STORAGE = "lumiere-ia-api-key";
 
-function resolveApiKey(): string {
-  if (ENV_API_KEY) return ENV_API_KEY;
-  return localStorage.getItem(APIKEY_STORAGE) ?? "";
+function resolveApiKeys(): string[] {
+  console.log("Leyendo contenido de keys.txt raw:", keysRaw);
+  // Prioridad 1: Claves en el archivo keys.txt
+  const fileKeys = keysRaw
+    .split(/\r?\n/)
+    .map((k) => k.trim())
+    .filter((k) => k && !k.startsWith("#") && !k.includes("API_KEY") && k.length > 20); // Filtrar placeholders y líneas cortas
+
+  console.log("Claves procesadas del archivo:", fileKeys.map(k => `${k.substring(0, 8)}...`));
+
+  if (fileKeys.length > 0) return fileKeys;
+
+  // Prioridad 2: Variable de entorno
+  if (ENV_API_KEY) return [ENV_API_KEY];
+
+  // Prioridad 3: LocalStorage (legacy)
+  const stored = localStorage.getItem(APIKEY_STORAGE);
+  return stored ? [stored] : [];
 }
 
 /* ─── Loading dots ─── */
@@ -187,9 +203,9 @@ const Diagnostico = () => {
   const total = questions.length;
 
   const [appState, setAppState] = useState<AppState>(() =>
-    resolveApiKey() ? "intro" : "apikey"
+    resolveApiKeys().length > 0 ? "intro" : "apikey"
   );
-  const [apiKey, setApiKey] = useState<string>(resolveApiKey);
+  const [apiKeys, setApiKeys] = useState<string[]>(resolveApiKeys);
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [recommendation, setRecommendation] = useState<Recommendation | null>(null);
@@ -218,7 +234,7 @@ const Diagnostico = () => {
     setAiError(null);
 
     try {
-      const rec = await getGeminiRecommendation(final, apiKey);
+      const rec = await getGeminiRecommendation(final, apiKeys);
       setRecommendation(rec);
       setAppState("result");
     } catch (err) {
@@ -303,7 +319,7 @@ const Diagnostico = () => {
             {appState === "apikey" && (
               <ApiKeyScreen
                 onSubmit={(key) => {
-                  setApiKey(key);
+                  setApiKeys([key, ...apiKeys]);
                   setAppState("intro");
                 }}
               />
@@ -455,7 +471,7 @@ const Diagnostico = () => {
                       <span className="italic text-gold">personalizada</span>
                     </h1>
                     <p className="text-cream/60 text-sm md:text-base leading-relaxed max-w-md">
-                      Recomendada por nuestro sistema de IA<br />
+                      Recomendada por <span className={aiError ? "text-gold" : ""}>nuestro sistema de IA</span><br />
                       para tu cabello hoy.
                     </p>
                   </div>
@@ -491,17 +507,6 @@ const Diagnostico = () => {
                   </div>
                 </div>
 
-                {aiError && (
-                  <div className="mt-6 border border-amber-500/40 bg-amber-500/10 p-4 text-xs text-amber-200/80">
-                    Modo offline: se usó la lógica local como alternativa. Verifica tu clave.
-                    <button
-                      onClick={changeApiKey}
-                      className="ml-2 underline underline-offset-2 text-amber-300"
-                    >
-                      Cambiar clave
-                    </button>
-                  </div>
-                )}
               </div>
             </div>
 

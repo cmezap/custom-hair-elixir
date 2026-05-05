@@ -75,37 +75,87 @@ RESPONDE ÚNICAMENTE con un objeto JSON válido con esta estructura exacta, sin 
 }`;
 }
 
+const MODELS = [
+  "gemini-3.1-flash-lite-preview",
+  "gemini-1.5-flash",
+  "gemini-1.5-flash-8b"
+];
+
 export async function getGeminiRecommendation(
   answers: Answers,
-  apiKey: string
+  apiKeys: string | string[]
+): Promise<Recommendation> {
+  const keys = Array.isArray(apiKeys) ? apiKeys : [apiKeys];
+  let lastError: Error | null = null;
+
+  for (const key of keys) {
+    if (!key) continue;
+    
+    for (const model of MODELS) {
+      try {
+        return await executeGeminiRequest(answers, key, model);
+      } catch (err) {
+        const errorMsg = err instanceof Error ? err.message : String(err);
+        console.warn(`Error con API Key (${key.substring(0, 8)}) y modelo (${model}): ${errorMsg}`);
+        lastError = err instanceof Error ? err : new Error(String(err));
+        
+        // Si el error es de "alta demanda" o "no encontrado", intentamos el siguiente modelo
+        if (errorMsg.includes("high demand") || errorMsg.includes("not found") || errorMsg.includes("404")) {
+          continue; 
+        }
+        // Si es un error de API Key (401/403), saltamos directamente a la siguiente clave
+        if (errorMsg.includes("API_KEY_INVALID") || errorMsg.includes("401") || errorMsg.includes("403")) {
+          break;
+        }
+      }
+    }
+  }
+
+  throw lastError || new Error("No se pudo obtener recomendación con ninguna combinación de claves y modelos.");
+}
+
+async function executeGeminiRequest(
+  answers: Answers,
+  apiKey: string,
+  modelName: string
 ): Promise<Recommendation> {
   const prompt = buildPrompt(answers);
 
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite-preview:generateContent?key=${apiKey}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 512,
-          responseMimeType: "application/json",
-        },
-      }),
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+  console.log(`Llamando a modelo ${modelName} con clave ${apiKey.substring(0, 8)}...`);
+
+  try {
+    const response = await fetch(
+      url,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 512,
+            responseMimeType: "application/json",
+          },
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      console.error("Error detallado de Gemini API:", JSON.stringify(err, null, 2));
+      const msg = (err as { error?: { message?: string } })?.error?.message ?? response.statusText;
+      throw new Error(`Error del servicio de IA: ${msg}`);
     }
-  );
 
-  if (!response.ok) {
-    const err = await response.json().catch(() => ({}));
-    const msg = (err as { error?: { message?: string } })?.error?.message ?? response.statusText;
-    throw new Error(`Error del servicio de IA: ${msg}`);
-  }
+    const data = await response.json();
+    const rawText: string =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
 
-  const data = await response.json();
-  const rawText: string =
-    data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
+    if (!rawText) {
+      console.error("Respuesta vacía de Gemini:", data);
+      throw new Error("La IA no generó contenido.");
+    }
 
   // Strip markdown code fences if Gemini adds them despite responseMimeType
   const cleaned = rawText.replace(/^```json\s*/i, "").replace(/```\s*$/i, "").trim();
@@ -129,4 +179,8 @@ export async function getGeminiRecommendation(
   }));
 
   return parsed;
+} catch (err) {
+    console.error("Error en executeGeminiRequest:", err);
+    throw err;
+  }
 }
