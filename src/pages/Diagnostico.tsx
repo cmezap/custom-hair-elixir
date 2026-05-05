@@ -279,7 +279,8 @@ const Diagnostico = () => {
     () => recommendation?.boosters.reduce((acc, b) => acc + b.drops, 0) ?? 0,
     [recommendation]
   );
-  const totalMezcla = (recommendation?.pumps ?? 0) * 3 + totalDrops; // approx grams
+  // Cada pump de crema base = 0.8 g, cada gota de booster = 0.02 g
+  const totalMezcla = ((recommendation?.pumps ?? 0) * 0.8 + totalDrops * 0.02).toFixed(2);
 
   const pickedIds = useMemo(
     () => new Set(recommendation?.boosters.map((b) => b.id) ?? []),
@@ -552,7 +553,7 @@ const Diagnostico = () => {
                         <p className="text-[10px] tracking-[0.3em] text-background/60 mb-4">PUMPS</p>
                         <div className="h-px bg-background/15 my-3" />
                         <p className="text-xs text-background/70">
-                          ≈ {recommendation.pumps * 3} g
+                          ≈ {(recommendation.pumps * 0.8).toFixed(2)} g
                         </p>
                         <p className="text-[10px] text-background/50 mt-1">de crema base</p>
                       </div>
