@@ -27,18 +27,20 @@ const QUESTION_LABELS: Record<string, string> = {
 };
 
 const BOOSTERS_CONTEXT = `
-BOOSTERS DISPONIBLES (SOLO estos 4 están formulados — NO recomendar Booster 5 ni Booster 6):
+BOOSTERS DISPONIBLES 
 - Booster 1 — Alisado & Suavidad: aceite de pepita de uva 60%, proteína de suero de leche hidrolizada 39%, Vitamina E 1%. Función: rellena microfisuras de la cutícula, aplana la superficie de la fibra capilar.
 - Booster 2 — Volumen & Ligereza: aceite de jojoba 79%, aceite de pepita de uva 20%, Vitamina E 1%. Función: hidrata sin pesar, aporta cuerpo y ligereza.
 - Booster 3 — Protección térmica: aceite de argán 50%, aceite de aguacate 49%, Vitamina E 1%. Función: barrera antioxidante y protectora antes del uso de plancha o secador.
 - Booster 4 — Nutrición profunda: aceite de aguacate 45%, aceite de argán 35%, aceite de arroz 19%, Vitamina E 1%. Función: nutrición lipídica profunda, ácido oleico y antioxidantes.
+- Booster 5 — Anti Frizz & Sellado: aceite de jojoba 55%, aceite de argán 44%, Vitamina E 1%. Función: Sella la cutícula y bloquea la humedad ambiental para un cabello sin frizz y con brillo.
+- Booster 6 — Definición de Rizos: aceite de coco fraccionado 60%, aceite de almendras 39%, Vitamina E 1%. Función: Define y mantiene la forma del rizo sin rigidez, aportando nutrición y elasticidad.
 
-REGLAS ESTRICTAS DE DOSIFICACIÓN (dosis total = pumps + gotas_totales ≤ 10, mínimo 4):
-- pumps: entre 2 y 5 (crema base hidratante, dosificador pump).
-- gotas por booster: entre 2 y 6.
-- Si recomiendas 2 boosters, la suma de pumps + gotas_booster1 + gotas_booster2 NO debe superar 10.
-- Si recomiendas 1 booster, la suma de pumps + gotas_booster1 NO debe superar 10.
-- El total (pumps + todas las gotas) debe estar entre 4 y 10.
+REGLAS ESTRICTAS DE DOSIFICACIÓN (dosis total = pumps ≤ 10 + gotas_totales ≤ 10, mínimo 3 pumps y mímino 4 gotas):
+- pumps: entre 4 y 10 (crema base hidratante, dosificador pump).
+- gotas por booster: entre 2 y 4.
+- El total de gotas (Todos los boosters juntos) no debe superar 10.
+- No pueden repetir boosters.
+- Mínimo se deben recomendar 2 y máximo 4 boosters.
 `;
 
 function buildPrompt(answers: Answers): string {
@@ -55,25 +57,26 @@ RESPUESTAS DEL DIAGNÓSTICO DEL USUARIO:
 ${answerLines}
 
 INSTRUCCIONES:
-1. Analiza las respuestas y determina cuántos pumps de crema base recomiendas (2-5).
-2. Selecciona 1 o 2 boosters de los disponibles (solo boosters 1, 2, 3 o 4).
+1. Analiza las respuestas y determina cuántos pumps de crema base recomiendas (3-10).
+2. Selecciona 2 o 4 boosters de los disponibles (1 a 6).
 3. Indica cuántas gotas de cada booster recomiendas.
-4. Verifica que pumps + gotas_totales esté entre 4 y 10 inclusive.
-5. Escribe una frase personalizada y elegante (máx 2 oraciones) en español, en tono luxury, dirigida al usuario con "tú".
-6. Escribe una razón breve (máx 15 palabras) del por qué de cada booster elegido.
+4. Verifica que pumps + gotas_totales esté entre 7 y 20.
+5. Escribe una frase personalizada y elegante (máx 3 oraciones) en español, en tono luxury, dirigida al usuario con "tú", siempre mencionando los beneficios que obtendrá y justificando la elección de los boosters.
+6. No uses palabras rebuscadas o técnico como melena o hebras, usa cabello y lenguaje un poco más natural y juvenil.
+7. Recomienda los PUMPs en base a la longitud y densidad del cabello.
+8. Se consistente en las respuestas si el usuario escoge "Frizz alto" o "Muy dañado" siempre incluye el booster 5 en la recomendación.
 
 RESPONDE ÚNICAMENTE con un objeto JSON válido con esta estructura exacta, sin texto extra, sin markdown, sin explicaciones:
 {
   "pumps": <número entero>,
   "boosters": [
     {
-      "id": <número entero 1-4>,
+      "id": <número entero 1-6>,
       "name": "<nombre del booster>",
-      "drops": <número entero>,
-      "reason": "<razón breve de máx 15 palabras>"
+      "drops": <número entero>
     }
   ],
-  "phrase": "<frase personalizada en tono luxury, máx 2 oraciones>",
+  "phrase": "<frase personalizada en tono luxury, máx 3 oraciones>",
   "summary": "<resumen de la dosis: X pumps + Y gotas de Booster Z>"
 }`;
 }

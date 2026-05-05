@@ -6,7 +6,7 @@ export interface BoosterDose {
   id: number;
   name: string;
   drops: number;
-  reason: string;
+  reason?: string;
 }
 
 export interface Recommendation {
